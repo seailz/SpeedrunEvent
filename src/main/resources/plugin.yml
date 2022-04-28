@@ -1,0 +1,5 @@
+name: SpeedrunEvent
+version: 1.0
+author: Seailz
+main: com.seailz.speedrunevent.SpeedrunEvent
+api-version: 1.18
