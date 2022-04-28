@@ -18,9 +18,9 @@ import java.util.List;
 @Getter
 public enum Locale {
 
-    QUEUE_CHANGE("queue.change", Collections.singletonList("&b&lQUEUE &fYou have been &b%status% the queue.")),
-    ENTER_GAME("game.enter", Collections.singletonList("&b&lGAME &fYou have joined a game with the UUID &b%uuid%")),
-    SETUP_ENTER("setup.enter", Collections.singletonList("&b&lADMIN &fYou have entered setup mode!")),
+    INVALID_ID("invalid.id", Collections.singletonList("&b&lLINK &fYour ID is invalid! Please type /link with no" +
+            " arguments for a tutorial on how to link yourself.")),
+
     INVALID_PLAYER("core.invalid-player", Collections.singletonList("&cThat player cannot be found"));
 
 

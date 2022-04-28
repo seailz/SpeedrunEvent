@@ -2,6 +2,7 @@ discord:
   token: ""
   whitelist-request-channel-id: ""
   whitelist-request-recieve-channel-id: ""
+  guild-id: ""
 game:
   speedrunerSlots: 20
 
@@ -9,3 +10,6 @@ game:
 data:
   whitelist-requests:
     - ""
+  linked:
+    steve:
+      discord: "steve :)"
