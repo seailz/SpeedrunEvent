@@ -15,6 +15,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 
+/**
+ * @description 1.0 Main Class
+ * @author Seailz
+ */
 public final class SpeedrunEvent extends BasePlugin {
 
     @Getter
@@ -34,11 +38,6 @@ public final class SpeedrunEvent extends BasePlugin {
     private int severeErrors;
     @Getter
     private ArrayList<String> debugLog;
-/**
- * @description 1.0 Main Class
- * @author Seailz
- */
-public final class SpeedrunEvent extends JavaPlugin {
 
     @Override
     public void onEnable() {
