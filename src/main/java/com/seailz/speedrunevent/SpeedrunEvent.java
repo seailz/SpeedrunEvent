@@ -1,7 +1,39 @@
 package com.seailz.speedrunevent;
 
+import com.seailz.speedrunevent.core.command.CommandDetailedReport;
+import com.seailz.speedrunevent.core.config.Options;
+import com.seailz.speedrunevent.core.log.Logger;
+import games.negative.framework.BasePlugin;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+
+public final class SpeedrunEvent extends BasePlugin {
+
+    @Getter
+    @Setter
+    public static SpeedrunEvent INSTANCE;
+    @Getter
+    @Setter
+    public static JDA CLIENT;
+    @Getter
+    @Setter
+    public static FileConfiguration CONFIG;
+    @Getter
+    boolean debug;
+    @Getter
+    private int minorErrors;
+    @Getter
+    private int severeErrors;
+    @Getter
+    private ArrayList<String> debugLog;
 /**
  * @description 1.0 Main Class
  * @author Seailz
@@ -11,11 +43,34 @@ public final class SpeedrunEvent extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        super.onEnable();
+        saveDefaultConfig();
+        INSTANCE = this;
+        CONFIG = this.getConfig();
+        try {
+            CLIENT = JDABuilder.createDefault(Options.TOKEN).build();
+        } catch (LoginException e) {
+            Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
+            Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
+            Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
+        }
 
+        registerCommands(
+                new CommandDetailedReport(this)
+        );
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    /**
+     * Add an error to the debug log.
+     *
+     * @param severe If the error is severe
+     * @author Seailz
+     */
+    public void addError(boolean severe) {
+        if (severe) {
+            severeErrors++;
+        } else {
+            minorErrors++;
+        }
     }
 }
