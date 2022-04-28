@@ -34,6 +34,11 @@ public final class SpeedrunEvent extends BasePlugin {
     private int severeErrors;
     @Getter
     private ArrayList<String> debugLog;
+/**
+ * @description 1.0 Main Class
+ * @author Seailz
+ */
+public final class SpeedrunEvent extends JavaPlugin {
 
     @Override
     public void onEnable() {
