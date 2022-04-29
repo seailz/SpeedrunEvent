@@ -5,6 +5,7 @@ import com.seailz.speedrunevent.core.command.CommandDetailedReport;
 import com.seailz.speedrunevent.core.config.Options;
 import com.seailz.speedrunevent.core.log.Logger;
 import com.seailz.speedrunevent.discord.command.CommandNewPanel;
+import com.seailz.speedrunevent.discord.listener.ButtonClick;
 import com.seailz.speedrunevent.game.Game;
 import games.negative.framework.BasePlugin;
 import lombok.Getter;
@@ -56,6 +57,7 @@ public final class SpeedrunEvent extends BasePlugin {
             CLIENT = JDABuilder.createDefault(Options.TOKEN).build();
             CLIENT.upsertCommand("newpanel", "Create a new panel").queue();
             CLIENT.addEventListener(new CommandNewPanel());
+            CLIENT.addEventListener(new ButtonClick());
         } catch (LoginException e) {
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");

@@ -63,7 +63,8 @@ public class ButtonClick implements EventListener {
             SpeedrunEvent.INSTANCE.saveConfig();
 
 
-            e.getMessage().delete();
+            e.getMessage().delete().queue();
+            ((ButtonInteractionEvent) event).reply("You are now a hunter!").setEphemeral(true).queue();
             e.getChannel().sendMessageEmbeds(new EmbedBuilder()
                             .setTitle("**Slots**")
                             .setDescription("Please choose a slot, speedruner or hunter! \n" +
@@ -76,6 +77,47 @@ public class ButtonClick implements EventListener {
                             Button.danger("hunter", "Hunter (Infinite)")
                     )
                     .queue();
+        }
+        else if (e.getButton().getId().equals("hunter")) {
+            boolean linked = false;
+            boolean setRole = false;
+            String mcName = "";
+            for (String s : SpeedrunEvent.CONFIG.getConfigurationSection("data.linked").getKeys(false)) {
+                if (SpeedrunEvent.CONFIG.getString("data.linked." + s + ".discord").equals(e.getUser().getId())) {
+                    linked = true;
+                    mcName = s;
+                }
+                if (SpeedrunEvent.CONFIG.getString("data.linked." + s + ".type") != null) {
+                    setRole = true;
+                }
+            }
+            if (setRole) {
+                e.reply("You've already chosen a team!").setEphemeral(true).queue();
+                return;
+            }
+            if (linked) {
+                e.reply("You haven't linked your account yet!").setEphemeral(true).queue();
+                return;
+            }
+            SpeedrunEvent.CONFIG.set("data.linked." + mcName + ".type", "hunter");
+            SpeedrunEvent.INSTANCE.saveConfig();
+
+
+            e.getMessage().delete().queue();
+            e.getChannel().sendMessageEmbeds(new EmbedBuilder()
+                            .setTitle("**Slots**")
+                            .setDescription("Please choose a slot, speedrunner or hunter! \n" +
+                                    "Speedrunner slots left: " + SpeedrunEvent.CONFIG.getInt("data.speedrunersLeft") + "" +
+                                    "\nHunter slots left: " + "Infinite")
+                            .setColor(Color.GREEN)
+                            .build()
+                    )
+                    .setActionRow(net.dv8tion.jda.api.interactions.components.buttons.Button.success("speedrun", "Speedrun (" + SpeedrunEvent.CONFIG.getInt("data.speedrunersLeft") + ")"),
+                            Button.danger("hunter", "Hunter (Infinite)")
+                    )
+                    .queue();
+
+            ((ButtonInteractionEvent) event).reply("You are now a hunter!").setEphemeral(true).queue();
         }
     }
 }
