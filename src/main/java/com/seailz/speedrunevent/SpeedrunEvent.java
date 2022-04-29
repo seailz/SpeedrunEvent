@@ -5,15 +5,18 @@ import com.seailz.speedrunevent.core.command.CommandDetailedReport;
 import com.seailz.speedrunevent.core.config.Options;
 import com.seailz.speedrunevent.core.log.Logger;
 import com.seailz.speedrunevent.discord.command.CommandNewPanel;
+import com.seailz.speedrunevent.game.Game;
 import games.negative.framework.BasePlugin;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @description 1.0 Main Class
@@ -38,6 +41,9 @@ public final class SpeedrunEvent extends BasePlugin {
     private int severeErrors;
     @Getter
     private ArrayList<String> debugLog;
+    @Getter
+    @Setter
+    private HashMap<Player, Game> games = new HashMap<>();
 
     @Override
     public void onEnable() {
