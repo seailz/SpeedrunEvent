@@ -42,7 +42,7 @@ public class ButtonClick implements EventListener {
                     linked = true;
                     mcName = s;
                 }
-                if (SpeedrunEvent.CONFIG.getString("data.linked." + s + ".type") != null) {
+                if (SpeedrunEvent.CONFIG.getString("data.linked." + s + ".type") != null && SpeedrunEvent.CONFIG.getString("data.linked." + s + ".discord").equals(e.getUser().getId())) {
                     setRole = true;
                 }
             }
@@ -50,7 +50,7 @@ public class ButtonClick implements EventListener {
                 e.reply("You've already chosen a team!").setEphemeral(true).queue();
                 return;
             }
-            if (linked) {
+            if (!linked) {
                 e.reply("You haven't linked your account yet!").setEphemeral(true).queue();
                 return;
             }

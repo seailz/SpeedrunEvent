@@ -55,15 +55,19 @@ public final class SpeedrunEvent extends BasePlugin {
         CONFIG = this.getConfig();
         try {
             CLIENT = JDABuilder.createDefault(Options.TOKEN).build();
-            CLIENT.upsertCommand("newpanel", "Create a new panel").queue();
-            CLIENT.addEventListener(new CommandNewPanel());
-            CLIENT.addEventListener(new ButtonClick());
         } catch (LoginException e) {
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
+            return;
         }
 
+        CLIENT.upsertCommand("newpanel", "Create a new panel").queue();
+        CLIENT.addEventListener(new CommandNewPanel());
+        CLIENT.addEventListener(new ButtonClick());
+        Options.ADMIN_WHITELIST_CHANNEL = SpeedrunEvent.CLIENT.getTextChannelById(SpeedrunEvent.CONFIG.getString("discord.whitelist-request-recieve-channel-id"));
+        Options.WHITELIST_REQUEST_CHANNEL =  SpeedrunEvent.CLIENT.getTextChannelById(SpeedrunEvent.CONFIG.getString("discord.whitelist-request-channel-id"));
+        Options.GUILD = SpeedrunEvent.CLIENT.getGuildById(SpeedrunEvent.CONFIG.getString("discord.guild-id"));
         registerCommands(
                 new CommandDetailedReport(this),
                 new CommandLink()

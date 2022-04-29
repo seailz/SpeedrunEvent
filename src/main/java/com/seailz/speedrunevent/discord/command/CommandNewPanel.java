@@ -17,7 +17,7 @@ public class CommandNewPanel implements EventListener {
     public void onEvent(@NotNull GenericEvent event) {
         if (!(event instanceof SlashCommandInteractionEvent)) return;
         SlashCommandInteractionEvent e = (SlashCommandInteractionEvent) event;
-        if (!e.getName().equals("newHub")) return;
+        if (!e.getName().equals("newpanel")) return;
         if (!e.getMember().hasPermission(Permission.MANAGE_CHANNEL)) return;
 
         e.getChannel().sendMessageEmbeds(new EmbedBuilder()
