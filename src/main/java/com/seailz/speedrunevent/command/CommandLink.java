@@ -23,8 +23,7 @@ public class CommandLink extends Command {
             return;
         }
         Player p = (Player) sender;
-        Member member = Options.GUILD.getMember(SpeedrunEvent.CLIENT.getUserById(args[0]));
-        member.getUser().openPrivateChannel().flatMap(channel ->
+        SpeedrunEvent.CLIENT.getUserById(args[0]).openPrivateChannel().flatMap(channel ->
                 channel.sendMessage("Please confirm that `" + sender.getName() + "` is you. " +
                         "If it isn't, please click deny!").setActionRow(Button.success("" +
                         "confirm-" + p, "Confirm"), Button.danger("deny", "Deny"))).queue();
