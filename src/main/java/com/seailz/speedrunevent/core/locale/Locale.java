@@ -21,7 +21,9 @@ public enum Locale {
     INVALID_ID("invalid.id", Collections.singletonList("&b&lLINK &fYour ID is invalid! Please type /link with no" +
             " arguments for a tutorial on how to link yourself.")),
 
-    INVALID_PLAYER("core.invalid-player", Collections.singletonList("&cThat player cannot be found"));
+    INVALID_PLAYER("core.invalid-player", Collections.singletonList("&cThat player cannot be found")),
+    STARTED("game.start", Collections.singletonList("&b&lGAME&f The game has started!")),
+    FIGHT_ON("game.headstartup", Collections.singletonList("&b&lGAME&f The hunters can now attack!"));
 
 
     private final String id;

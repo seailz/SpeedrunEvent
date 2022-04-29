@@ -5,15 +5,19 @@ import com.seailz.speedrunevent.core.command.CommandDetailedReport;
 import com.seailz.speedrunevent.core.config.Options;
 import com.seailz.speedrunevent.core.log.Logger;
 import com.seailz.speedrunevent.discord.command.CommandNewPanel;
+import com.seailz.speedrunevent.discord.listener.ButtonClick;
+import com.seailz.speedrunevent.game.Game;
 import games.negative.framework.BasePlugin;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @description 1.0 Main Class
@@ -38,6 +42,9 @@ public final class SpeedrunEvent extends BasePlugin {
     private int severeErrors;
     @Getter
     private ArrayList<String> debugLog;
+    @Getter
+    @Setter
+    private HashMap<Player, Game> games = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -48,14 +55,19 @@ public final class SpeedrunEvent extends BasePlugin {
         CONFIG = this.getConfig();
         try {
             CLIENT = JDABuilder.createDefault(Options.TOKEN).build();
-            CLIENT.upsertCommand("newpanel", "Create a new panel").queue();
-            CLIENT.addEventListener(new CommandNewPanel());
         } catch (LoginException e) {
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
             Logger.log(Logger.LogLevel.ERROR, "The token is invalid!");
+            return;
         }
 
+        CLIENT.upsertCommand("newpanel", "Create a new panel").queue();
+        CLIENT.addEventListener(new CommandNewPanel());
+        CLIENT.addEventListener(new ButtonClick());
+        Options.ADMIN_WHITELIST_CHANNEL = SpeedrunEvent.CLIENT.getTextChannelById(SpeedrunEvent.CONFIG.getString("discord.whitelist-request-recieve-channel-id"));
+        Options.WHITELIST_REQUEST_CHANNEL =  SpeedrunEvent.CLIENT.getTextChannelById(SpeedrunEvent.CONFIG.getString("discord.whitelist-request-channel-id"));
+        Options.GUILD = SpeedrunEvent.CLIENT.getGuildById(SpeedrunEvent.CONFIG.getString("discord.guild-id"));
         registerCommands(
                 new CommandDetailedReport(this),
                 new CommandLink()

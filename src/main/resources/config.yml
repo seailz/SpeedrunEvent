@@ -13,3 +13,5 @@ data:
   linked:
     steve:
       discord: "steve :)"
+      type: "speedrun"
+  speedrunersLeft: 20
