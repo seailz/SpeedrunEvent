@@ -7,5 +7,8 @@ For those developers out there, I MAY write an API for this, but I'm not sure at
 
 that's all I have to say :)
 
+### Curent Status
+I'm currently not sure if I want to carry on this project, so we may never see the completion of this if I don't want to😭
+
 (portfolio at https://dev.seailz.com)
  
