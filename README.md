@@ -10,5 +10,7 @@ that's all I have to say :)
 ### Curent Status
 I'm currently not sure if I want to carry on this project, so we may never see the completion of this if I don't want to😭
 
+- update (18/05/2022) this project won't be completed. Not really interested in hosting events anymore and don't have any time to code this.
+
 (portfolio at https://dev.seailz.com)
  
